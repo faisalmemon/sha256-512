@@ -13,11 +13,11 @@ typedef enum Mode
 {
     MODE_256 = 0x01,
     MODE_512 = 0x02,
-    MODE_BOTH = (MODE_256 | MODE_512),
     MODE_512_256 = 0x04,
+    MODE_ALL = (MODE_256 | MODE_512 | MODE_512_256),
 } Mode;
 
-Mode progMode = MODE_BOTH;
+Mode progMode = MODE_ALL;
 
 /// Prints the checksum of the given file
 void getChecksum(char *filename)
@@ -90,9 +90,9 @@ void getChecksum(char *filename)
 void printOptions(char *arg0)
 {
     printf("Usage: %s [OPTION or STRING]\n", arg0);
-    printf("Calculate the SHA-512 and SHA-256 hashes of an input string, or the checksum of a given file.\n\n");
+    printf("Calculate the SHA-512, SHA-512/256 or SHA-256 hashes of an input string, or the checksum of a given file.\n\n");
     printf("Options:\n");
-    printf("-f, --file [FILENAME] Calculate both the SHA-512 & SHA-256 checksums of the file.\n");
+    printf("-f, --file [FILENAME] Calculate the SHA-512, SHA-512/256 & SHA-256 checksums of the file.\n");
     printf("-m, --mode [MODE] Calculates only the SHA256 digest with mode = 256, or only the SHA512 digest with mode = 512, or the truncated variant SHA512/256 with mode = 512_256\n");
     printf("-h, --help Print command line options\n\n");   
 }
