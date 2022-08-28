@@ -13,7 +13,8 @@ typedef enum Mode
 {
     MODE_256 = 0x01,
     MODE_512 = 0x02,
-    MODE_BOTH = (MODE_256 | MODE_512)
+    MODE_BOTH = (MODE_256 | MODE_512),
+    MODE_512_256 = 0x04,
 } Mode;
 
 Mode progMode = MODE_BOTH;
@@ -72,6 +73,11 @@ void getChecksum(char *filename)
         printf("\n");
         free(checksum2);
     }
+
+    if (progMode & MODE_512_256)
+    {
+	    printf("Not implemented yet\n");
+    }
     
     free(fileContents);
 }
@@ -83,7 +89,7 @@ void printOptions(char *arg0)
     printf("Calculate the SHA-512 and SHA-256 hashes of an input string, or the checksum of a given file.\n\n");
     printf("Options:\n");
     printf("-f, --file [FILENAME] Calculate both the SHA-512 & SHA-256 checksums of the file.\n");
-    printf("-m, --mode [MODE] Calculates only the SHA256 digest with mode = 256, or only the SHA512 digest with mode = 512\n");
+    printf("-m, --mode [MODE] Calculates only the SHA256 digest with mode = 256, or only the SHA512 digest with mode = 512, or the truncated variant SHA512/256 with mode = 512_256\n");
     printf("-h, --help Print command line options\n\n");   
 }
 
@@ -124,6 +130,15 @@ void hashInput(int argc, int inputPos, char **argv)
         printf("\n");
         free(argHash2);
     }
+    if (progMode & MODE_512_256)
+    {
+        uint64_t *argHash3 = SHA512Hash((uint8_t*)argStr, strlen(argStr));
+        printf("SHA-512/256 hash of command line input: IGNORE_THE_FOLLOWING NOT YET IMPLEMENTED \n");
+        for (int i = 0; i < HASH_ARRAY_LEN; ++i)
+            printf("%016" PRIx64 , argHash3[i]);
+        printf("\n");
+        free(argHash3);
+    }
     
     free(argStr);
 }
@@ -156,10 +171,13 @@ int main(int argc, char **argv)
                         {
                             char *str256 = "256";
                             char *str512 = "512";
+			    char *str512_256 = "512_256";
                             if (strncmp(argv[i + 1], str256, 3) == 0)
                                 progMode = MODE_256;
                             if (strncmp(argv[i + 1], str512, 3) == 0)
                                 progMode = MODE_512;
+                            if (strncmp(argv[i + 1], str512_256, 7) == 0)
+                                progMode = MODE_512_256;
 
                             if (argc > i + 2)
                                 inputPos = i + 2;
