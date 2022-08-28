@@ -76,7 +76,11 @@ void getChecksum(char *filename)
 
     if (progMode & MODE_512_256)
     {
-	    printf("Not implemented yet\n");
+        uint64_t *checksum = SHA512Hash((uint8_t*)fileContents, fileSize);
+        for (int i = 0; i < HASH_ARRAY_LEN/2; ++i)
+            printf("%016" PRIx64 , checksum[i]);
+        printf("\n");
+        free(checksum);
     }
     
     free(fileContents);
@@ -132,10 +136,10 @@ void hashInput(int argc, int inputPos, char **argv)
     }
     if (progMode & MODE_512_256)
     {
-        uint64_t *argHash3 = SHA512Hash((uint8_t*)argStr, strlen(argStr));
-        printf("SHA-512/256 hash of command line input: IGNORE_THE_FOLLOWING NOT YET IMPLEMENTED \n");
-        for (int i = 0; i < HASH_ARRAY_LEN; ++i)
-            printf("%016" PRIx64 , argHash3[i]);
+        uint64_t *argHash3 = SHA512_256Hash((uint8_t*)argStr, strlen(argStr));
+        printf("SHA-512/256 hash of command line input: \n");
+        for (int i = 0; i < HASH_ARRAY_LEN/2; ++i)
+            printf("%08" PRIx64 , argHash3[i]);
         printf("\n");
         free(argHash3);
     }
