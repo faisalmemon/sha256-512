@@ -1,0 +1,22 @@
+From https://github.com/openssl/openssl/commit/4bed94f0c11ef63587c6b2edb03c3c438e221604
+
+# Some of the test vectors from the SHS CAVP for FIPS 180-4
+ Digest = SHA512-256
+ Input = 
+ Output = c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a
+
+ Digest = SHA512-256
+ Input = fa
+ Output = c4ef36923c64e51e875720e550298a5ab8a3f2f875b1e1a4c9b95babf7344fef
+
+ Digest = SHA512-256
+ Input = 74e4
+ Output = 0c994228b8d3bd5ea5b5259157a9bba7a193118ad22817e6fbed2df1a32a4148
+
+ Digest = SHA512-256
+ Input = b4e2e8501f54be91
+ Output = d25265bf9cbc0dd2f108a2f5e8f69db7d15e5b8fe9100fe887dae20b6e054fe8
+
+ Digest = SHA512-256
+ Input = 63188781f4e9cbd1e89a54a65da053b93722e1106f00f024ad1582421ab919326f8a6e17536d6596e3cf413a9231141733e37aae540f8711cefafe489a87c4f2e6fd942f6809f3bef3076763487de48c2ee88733c5bc870617a668c6f01471ed
+ Output = 91a8e285029085e224987078066486b6c605cbac27e49e84f4639710ddd05d33
